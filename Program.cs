@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Booyah!");
+            Console.WriteLine("");
+            Console.ReadLine();
         }
     }
 }

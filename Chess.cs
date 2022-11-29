@@ -8,5 +8,6 @@ namespace MiniGames
 {
     internal class Chess
     {
+
     }
 }

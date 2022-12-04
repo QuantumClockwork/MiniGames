@@ -9,22 +9,20 @@ namespace MiniGames
     internal class TicTacToe
     {
         bool isNavigation;
-        string[] arr = new string[9];
-        string player1Token, player2Token;
-        int navigation;
+        string[] arrBoard = new string[9];
+        string player1Token, emptyCell = "-";
+        int destinationCell = 4, startCell = 4;
 
         public TicTacToe()
         {
             isNavigation = true;
-            this.player1Token = "X";
-            this.player2Token = "O";
+            player1Token = "X";
 
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arrBoard.Length; i++)
             {
-                arr[i] = "-";
+                arrBoard[i] = "-";
             }
-            arr[4] = player1Token;
-            navigation = 4;
+            arrBoard[startCell] = player1Token;
         }
 
         public void GameLoop()
@@ -34,16 +32,15 @@ namespace MiniGames
 
             while (isNavigation)
             {
-                Console.WriteLine("ARROW KEYS FOR MOVEMENT");
-                Console.WriteLine("___________________" +
+                Console.WriteLine("MOVE WITH ARROW KEYS\n___________________" +
                     "\n|     |     |     |" +
-                    "\n|  " + arr[0] + "  |  " + arr[1] + "  |  " + arr[2] + "  |" +
+                    "\n|  " + arrBoard[0] + "  |  " + arrBoard[1] + "  |  " + arrBoard[2] + "  |" +
                     "\n|_____|_____|_____|" +
                     "\n|     |     |     |" +
-                    "\n|  " + arr[3] + "  |  " + arr[4] + "  |  " + arr[5] + "  |" +
+                    "\n|  " + arrBoard[3] + "  |  " + arrBoard[4] + "  |  " + arrBoard[5] + "  |" +
                     "\n|_____|_____|_____|" +
                     "\n|     |     |     |" +
-                    "\n|  " + arr[6] + "  |  " + arr[7] + "  |  " + arr[8] + "  |" +
+                    "\n|  " + arrBoard[6] + "  |  " + arrBoard[7] + "  |  " + arrBoard[8] + "  |" +
                     "\n|_____|_____|_____|");
 
                 keyInputInfo = Console.ReadKey();
@@ -51,71 +48,64 @@ namespace MiniGames
                 if (keyInputInfo.Key == ConsoleKey.UpArrow)
                 {
                     Console.Clear();
-                    navigation = MoveCursor(ConsoleKey.UpArrow, navigation);
+                    destinationCell = MoveCursor(ConsoleKey.UpArrow, destinationCell);
                 }
-
                 else if (keyInputInfo.Key == ConsoleKey.DownArrow)
                 {
                     Console.Clear();
-                    navigation = MoveCursor(ConsoleKey.DownArrow, navigation);
+                    destinationCell = MoveCursor(ConsoleKey.DownArrow, destinationCell);
                 }
-
                 else if (keyInputInfo.Key == ConsoleKey.RightArrow)
                 {
                     Console.Clear();
-                    navigation = MoveCursor(ConsoleKey.RightArrow, navigation);
+                    destinationCell = MoveCursor(ConsoleKey.RightArrow, destinationCell);
                 }
-
                 else if (keyInputInfo.Key == ConsoleKey.LeftArrow)
                 {
                     Console.Clear();
-                    navigation = MoveCursor(ConsoleKey.LeftArrow, navigation);
+                    destinationCell = MoveCursor(ConsoleKey.LeftArrow, destinationCell);
                 }
             }
         }
-        public int MoveCursor(ConsoleKey key, int nav)
+        public int MoveCursor(ConsoleKey keyPressed, int cell)
         {
-            if (key == ConsoleKey.UpArrow)
+            if (keyPressed == ConsoleKey.UpArrow)
             {
-                if (nav != 0 && nav != 1 && nav != 2)
+                if (cell != 0 && cell != 1 && cell != 2)
                 {
-                    arr[nav] = "-";
-                    nav = nav - 3;
-                    arr[nav] = player1Token;
+                    arrBoard[cell] = emptyCell;
+                    cell -= 3;
+                    arrBoard[cell] = player1Token;
                 }
             }
-
-            else if (key == ConsoleKey.DownArrow)
+            else if (keyPressed == ConsoleKey.DownArrow)
             {
-                if (nav != 6 && nav != 7 && nav != 8)
+                if (cell != 6 && cell != 7 && cell != 8)
                 {
-                    arr[nav] = "-";
-                    nav = nav + 3;
-                    arr[nav] = player1Token;
+                    arrBoard[cell] = emptyCell;
+                    cell += 3;
+                    arrBoard[cell] = player1Token;
                 }
             }
-
-            else if (key == ConsoleKey.RightArrow)
+            else if (keyPressed == ConsoleKey.RightArrow)
             {
-                if (nav != 8)
+                if (cell != 8)
                 {
-                    arr[nav] = "-";
-                    nav = nav + 1;
-                    arr[nav] = player1Token;
+                    arrBoard[cell] = emptyCell;
+                    cell += 1;
+                    arrBoard[cell] = player1Token;
                 }
             }
-
-            else if (key == ConsoleKey.LeftArrow)
+            else if (keyPressed == ConsoleKey.LeftArrow)
             {
-                if (nav != 0)
+                if (cell != 0)
                 {
-                    arr[nav] = "-";
-                    nav = nav - 1;
-                    arr[nav] = player1Token;
+                    arrBoard[cell] = emptyCell;
+                    cell -= 1;
+                    arrBoard[cell] = player1Token;
                 }
-                
             }
-            return nav;
+            return cell;
         }
     }
 }

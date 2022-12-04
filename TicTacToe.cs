@@ -11,6 +11,7 @@ namespace MiniGames
         bool isNavigation;
         string[] arr = new string[9];
         string player1Token, player2Token;
+        int navigation;
 
         public TicTacToe()
         {
@@ -22,62 +23,99 @@ namespace MiniGames
             {
                 arr[i] = "-";
             }
-        }
-
-        public void Game()
-        {
-            GameLoop();
+            arr[4] = player1Token;
+            navigation = 4;
         }
 
         public void GameLoop()
         {
-            arr[4] = "X";
+            //arr[navigation] = player1Token;
             ConsoleKeyInfo keyInputInfo;
 
             while (isNavigation)
             {
+                Console.WriteLine("ARROW KEYS FOR MOVEMENT");
                 Console.WriteLine("___________________" +
-                           "\n|     |     |     |" +
-                           "\n|  " + arr[0] + "  |  " + arr[1] + "  |  " + arr[2] + "  |" +
-                           "\n|_____|_____|_____|" +
-                           "\n|     |     |     |" +
-                           "\n|  " + arr[3] + "  |  " + arr[4] + "  |  " + arr[5] + "  |" +
-                           "\n|_____|_____|_____|" +
-                           "\n|     |     |     |" +
-                           "\n|  " + arr[6] + "  |  " + arr[7] + "  |  " + arr[8] + "  |" +
-                           "\n|_____|_____|_____|");
+                    "\n|     |     |     |" +
+                    "\n|  " + arr[0] + "  |  " + arr[1] + "  |  " + arr[2] + "  |" +
+                    "\n|_____|_____|_____|" +
+                    "\n|     |     |     |" +
+                    "\n|  " + arr[3] + "  |  " + arr[4] + "  |  " + arr[5] + "  |" +
+                    "\n|_____|_____|_____|" +
+                    "\n|     |     |     |" +
+                    "\n|  " + arr[6] + "  |  " + arr[7] + "  |  " + arr[8] + "  |" +
+                    "\n|_____|_____|_____|");
 
                 keyInputInfo = Console.ReadKey();
 
                 if (keyInputInfo.Key == ConsoleKey.UpArrow)
                 {
                     Console.Clear();
-                    
-                    // need if statements that make sure movement on array is done the right way
-
-                    // scripted movement, not actually proper
-                    arr[4] = "-";
-                    arr[1] = "X";
+                    navigation = MoveCursor(ConsoleKey.UpArrow, navigation);
                 }
 
-                if (keyInputInfo.Key == ConsoleKey.DownArrow)
+                else if (keyInputInfo.Key == ConsoleKey.DownArrow)
                 {
                     Console.Clear();
-                    Console.WriteLine("DOWN");
+                    navigation = MoveCursor(ConsoleKey.DownArrow, navigation);
                 }
 
-                if (keyInputInfo.Key == ConsoleKey.RightArrow)
+                else if (keyInputInfo.Key == ConsoleKey.RightArrow)
                 {
                     Console.Clear();
-                    Console.WriteLine("RIGHT");
+                    navigation = MoveCursor(ConsoleKey.RightArrow, navigation);
                 }
 
-                if (keyInputInfo.Key == ConsoleKey.LeftArrow)
+                else if (keyInputInfo.Key == ConsoleKey.LeftArrow)
                 {
                     Console.Clear();
-                    Console.WriteLine("LEFT");
+                    navigation = MoveCursor(ConsoleKey.LeftArrow, navigation);
                 }
             }
+        }
+        public int MoveCursor(ConsoleKey key, int nav)
+        {
+            if (key == ConsoleKey.UpArrow)
+            {
+                if (nav != 0 && nav != 1 && nav != 2)
+                {
+                    arr[nav] = "-";
+                    nav = nav - 3;
+                    arr[nav] = player1Token;
+                }
+            }
+
+            else if (key == ConsoleKey.DownArrow)
+            {
+                if (nav != 6 && nav != 7 && nav != 8)
+                {
+                    arr[nav] = "-";
+                    nav = nav + 3;
+                    arr[nav] = player1Token;
+                }
+            }
+
+            else if (key == ConsoleKey.RightArrow)
+            {
+                if (nav != 8)
+                {
+                    arr[nav] = "-";
+                    nav = nav + 1;
+                    arr[nav] = player1Token;
+                }
+            }
+
+            else if (key == ConsoleKey.LeftArrow)
+            {
+                if (nav != 0)
+                {
+                    arr[nav] = "-";
+                    nav = nav - 1;
+                    arr[nav] = player1Token;
+                }
+                
+            }
+            return nav;
         }
     }
 }
